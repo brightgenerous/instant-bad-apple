@@ -128,7 +128,7 @@ public class InstantBadAppleApplication extends Application {
 
     private MediaPlayer getMediaPlayer() throws Exception {
 
-        URL url = new URL("http://www.youtube.com/results?search_query=bad+apple");
+        URL url = new URL("http://www.youtube.com/results?search_query=bad+apple&search_sort=video_view_count");
 
         String searchHtml = null;
         {
