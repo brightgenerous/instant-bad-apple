@@ -16,6 +16,7 @@ Instant Bad Apple
 * 起動すると Bad Apple を再生します
 * 運が悪いと Error のダイアログが出るだけです
 * 最後まで再生するか、クリックすると終了します
+* Windows以外のOSでは動画が見れないかもしれません
 
 
 使い方
@@ -29,7 +30,7 @@ Instant Bad Apple
 ビルド
 -------
 
-環境に合わせて pom.xml ファイルの65行目あたりを書き換えてください
+環境に合わせて pom.xml ファイルの56行目あたりを書き換えてください
 
       <systemPath>C:\Program Files\Java\jre7\lib\jfxrt.jar</systemPath>
 
