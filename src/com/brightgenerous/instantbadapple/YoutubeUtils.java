@@ -34,15 +34,6 @@ class YoutubeUtils {
             }
             if (retUrl == null) {
                 for (Video video : videos) {
-                    if (video.ext.toLowerCase().contains("3gp")
-                            && video.type.toLowerCase().contains("medium")) {
-                        retUrl = video.url;
-                        break;
-                    }
-                }
-            }
-            if (retUrl == null) {
-                for (Video video : videos) {
                     if (video.ext.toLowerCase().contains("mp4")
                             && video.type.toLowerCase().contains("low")) {
                         retUrl = video.url;
@@ -52,8 +43,33 @@ class YoutubeUtils {
             }
             if (retUrl == null) {
                 for (Video video : videos) {
-                    if (video.ext.toLowerCase().contains("3gp")
+                    if (video.ext.toLowerCase().contains("mp4")) {
+                        retUrl = video.url;
+                        break;
+                    }
+                }
+            }
+            if (retUrl == null) {
+                for (Video video : videos) {
+                    if (video.ext.toLowerCase().contains("flv")
+                            && video.type.toLowerCase().contains("medium")) {
+                        retUrl = video.url;
+                        break;
+                    }
+                }
+            }
+            if (retUrl == null) {
+                for (Video video : videos) {
+                    if (video.ext.toLowerCase().contains("flv")
                             && video.type.toLowerCase().contains("low")) {
+                        retUrl = video.url;
+                        break;
+                    }
+                }
+            }
+            if (retUrl == null) {
+                for (Video video : videos) {
+                    if (video.ext.toLowerCase().contains("flv")) {
                         retUrl = video.url;
                         break;
                     }
@@ -85,11 +101,12 @@ class YoutubeUtils {
 
     private static final Pattern patternStreamMap = Pattern.compile("stream_map\": \"(.*?)?\"");
 
-    private static final Pattern patternItag = Pattern.compile("(?:\\?|&)itag=([0-9]+?)(?:&.*|)$");
+    private static final Pattern patternItag = Pattern
+            .compile("^(?:.*\\?|.*&)?itag=([0-9]+?)(?:&.*)?$");
 
-    private static final Pattern patternSig = Pattern.compile("(?:\\?|&)sig=(.*?)(?:&.*|)$");
+    private static final Pattern patternSig = Pattern.compile("^(?:.*\\?|.*&)?sig=(.*?)(?:&.*)?$");
 
-    private static final Pattern patternUrl = Pattern.compile("url=(.*?)(?:&.*|)$");
+    private static final Pattern patternUrl = Pattern.compile("^(?:.*\\?|.*&)?url=(.*?)(?:&.*)?$");
 
     private static List<Video> getStreamingUrisFromUrl(String url) throws IOException {
         String html = getPageHtml(url);
@@ -120,7 +137,7 @@ class YoutubeUtils {
         {
             Matcher mStreamMap = patternStreamMap.matcher(html);
             while (mStreamMap.find()) {
-                streamMaps.add(mStreamMap.group());
+                streamMaps.add(mStreamMap.group(1));
             }
         }
 

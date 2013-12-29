@@ -64,7 +64,7 @@ public class InstantBadAppleApplication extends Application {
             Label label = LabelBuilder.create().text(text).build();
             FlowPane root = FlowPaneBuilder.create().children(label).alignment(Pos.CENTER).build();
             Scene scene = SceneBuilder.create().root(root).build();
-            StageBuilder.create().scene(scene).width(300).height(240).title("Error").applyTo(stage);
+            StageBuilder.create().scene(scene).width(300).height(240).title("Instant Bad Apple - Error").applyTo(stage);
         } else {
             MediaView mediaView = MediaViewBuilder.create().mediaPlayer(player).build();
 
@@ -78,9 +78,11 @@ public class InstantBadAppleApplication extends Application {
             };
             mediaView.fitWidthProperty().bind(root.widthProperty());
             mediaView.fitHeightProperty().bind(root.heightProperty());
+            mediaView.setSmooth(true);
+            mediaView.setPreserveRatio(true);
             root.getChildren().add(mediaView);
             Scene scene = SceneBuilder.create().root(root).build();
-            StageBuilder.create().scene(scene).applyTo(stage);
+            StageBuilder.create().scene(scene).title("Instant Bad Apple").applyTo(stage);
 
             root.setPrefWidth(300);
             root.setPrefHeight(240);
@@ -128,7 +130,8 @@ public class InstantBadAppleApplication extends Application {
 
     private MediaPlayer getMediaPlayer() throws Exception {
 
-        URL url = new URL("http://www.youtube.com/results?search_query=bad+apple&search_sort=video_view_count");
+        URL url = new URL(
+                "http://www.youtube.com/results?search_query=bad+apple&search_sort=video_view_count");
 
         String searchHtml = null;
         {
