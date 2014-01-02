@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
@@ -48,6 +49,7 @@ import javafx.scene.media.MediaViewBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBuilder;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageBuilder;
 import javafx.stage.StageStyle;
@@ -116,9 +118,9 @@ public class InstantBadAppleApplication extends Application {
             mediaPane.prefHeightProperty().bind(stage.heightProperty());
 
             final ImageCursor iconW = new ImageCursor(new Image(
-                    InstantBadAppleApplication.class.getResourceAsStream("icon_w.png")), 20, 20);
+                    InstantBadAppleApplication.class.getResourceAsStream("icon_w.png")));
             final ImageCursor iconB = new ImageCursor(new Image(
-                    InstantBadAppleApplication.class.getResourceAsStream("icon_b.png")), 20, 20);
+                    InstantBadAppleApplication.class.getResourceAsStream("icon_b.png")));
 
             mediaPane.setCursor(iconB);
             mediaPane.setStyle("-fx-background-color:black;");
@@ -195,10 +197,27 @@ public class InstantBadAppleApplication extends Application {
             Scene scene = SceneBuilder.create().root(group).build();
             StageBuilder.create().scene(scene).title("Instant Bad Apple").applyTo(stage);
             stage.initStyle(StageStyle.UNDECORATED);
-            stage.setFullScreen(true);
+            stage.setMinWidth(300);
+            stage.setMinHeight(240);
             stage.setOpacity(0.7);
         }
 
+        boolean full = false;
+        {
+            String os = System.getProperty("os.name");
+            full = (os != null) && os.toLowerCase().contains("windows");
+        }
+        if (full) {
+            stage.setFullScreen(true);
+        } else {
+            Rectangle2D d = Screen.getPrimary().getVisualBounds();
+            double w = d.getWidth();
+            double h = d.getHeight();
+            stage.setX(w * 0.05);
+            stage.setY(h * 0.05);
+            stage.setWidth(w * 0.9);
+            stage.setHeight(h * 0.9);
+        }
         stage.show();
     }
 
@@ -213,8 +232,8 @@ public class InstantBadAppleApplication extends Application {
 
         List<KeyFrame> keyFrames = new ArrayList<>();
 
-        keyFrames.addAll(createKeyFrameFix(width, height, group, delay + 3000, 3000, "画面をクリックすると終了します",
-                fontSize, 0, -1, 1000, textFill, effect));
+        keyFrames.addAll(createKeyFrameFix(width, height, group, delay + 3000, 3000,
+                "画面をクリックすると終了します", fontSize, 0, -1, 1000, textFill, effect));
 
         keyFrames.addAll(createKeyFrameFix(width, height, group, delay + 1500, 20000, "少女祈祷中．．．",
                 fontSize * 2, -1, -1, 1000, textFill, effect));
@@ -239,7 +258,7 @@ public class InstantBadAppleApplication extends Application {
                 fontSize * 1.5, (height / 2) + fontSize, textFill, effect));
 
         keyFrames.add(createKeyFrameFlow(width, height, group, delay + 31500, 4500, "ほら", fontSize,
-                (height / 2) - fontSize * 3, textFill, effect));
+                (height / 2) - (fontSize * 3), textFill, effect));
 
         keyFrames.addAll(createKeyFrameFix(width, height, group, delay + 33700, 2100, "グ",
                 fontSize * 2, (width / 2) - (fontSize * 6), (height / 2) - (fontSize * 6), 1500,
@@ -281,8 +300,7 @@ public class InstantBadAppleApplication extends Application {
         keyFrames.addAll(createKeyFrameFix(width, height, group, delay + 42000, 1500, "い",
                 fontSize * 10, 0, -1, 0, textFill, effect));
         keyFrames.add(createKeyFrameFlow(width, height, group, delay + 41800, 2000, "？",
-                fontSize * 10, (height / 2) - fontSize * 3.5,
-                textFill, effect));
+                fontSize * 10, (height / 2) - (fontSize * 3.5), textFill, effect));
 
         ObjectBinding<Color> textFillRev = Bindings.when(textFill.isEqualTo(Color.WHITE))
                 .then(Color.BLACK).otherwise(Color.WHITE);

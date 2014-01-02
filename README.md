@@ -14,11 +14,12 @@ Instant Bad Apple
 #### 機能
 
 * Windows以外のOSでは動画が見れないかもしれません
-* 2014謹賀新年モードになってしまいました - instant-bad-apple_2.0.14.jar
+* 2014謹賀新年モードになってしまいました - instant-bad-apple_2.0.14_win.jar
 * 起動するとY○utubeで最も再生数の多い Bad Apple を再生します
 * 運が悪いと Error のダイアログが出るだけです
 * 最後まで再生するか、クリックすると終了します
 * Windows以外のOSでは動画が見れないかもしれません（大事なこry
+* Mac OS X 10.7.5 で確認 - instant-bad-apple_2.0.14_mac.jar
 
 
 使い方
@@ -34,7 +35,7 @@ Instant Bad Apple
 
 環境に合わせて pom.xml ファイルの56行目あたりを書き換えてください
 
-      <systemPath>C:\Program Files\Java\jre7\lib\jfxrt.jar</systemPath>
+      <systemPath>......\jfxrt.jar</systemPath>
 
 
 contributors
